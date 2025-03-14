@@ -1,1 +1,1 @@
-# Threat-Hunting-Scenario-Compromise
+# Threat Hunting Scenario: System Compromise
