@@ -42,7 +42,7 @@ DeviceLogonEvents
 
 ### 2. Searched the `DeviceProcessEvents` Table
 
-Observing that a successful login was achieved after the failed attempts, I inspected the `DeviceProcessEvents` to search for any unusual or suspicious behavior. I narrowed my search in the table by only returning event logs after the successful logon at `2025-03-15T15:02:10.5325975Z`. I began my threat hunting by querying for any `PowerShellCommand` activity using the `ActionType` field. 
+Observing that a successful login was achieved after the failed attempts, I inspected the `DeviceProcessEvents` to search for any unusual or suspicious behavior. I narrowed my search in the table by only returning event logs after the successful logon at `2025-03-15T15:02:10.5325975Z`. I began my threat hunting by querying for any `PowerShellCommand` activity using the `ActionType` field. Several logs were returned with the first suspicoius powershell command initiating an `Invoke-WebRequest` request for `https://github.com/AaronRMartinez/Threat-Hunting-Scenario-Compromise/raw/refs/heads/main/MaliciousExecutable.exe`. Possibly indicating that the attacker has initiated a download for a malicious file with the name `MaliciousExecutable.exe`.
 
 **Query used to locate event:**
 
@@ -54,7 +54,7 @@ DeviceEvents
 | order by Timestamp asc
 | project Timestamp, InitiatingProcessAccountName, InitiatingProcessId, InitiatingProcessCommandLine, AdditionalFields
 ```
-![image](https://github.com/user-attachments/assets/f9d779ba-120b-47d1-897f-d81282452df1)
+![image](https://github.com/user-attachments/assets/f00fdcdc-5148-4279-969e-1efe01f8756c)
 
 ---
 
