@@ -78,7 +78,7 @@ DeviceNetworkEvents
 
 ### 4. Inspected the `DeviceProcessEvents` Table to Verfiy if `MaliciousExecutable.exe` was Run
 
-Understanding that the threat actor downloaded the malicious executable `MaliciousExecutable.exe`, the next stage in the investigation was to determine if the file was executed. Using the endpoint's name and the name of the executable, I filtered the event logs within the `DeviceProcessEvents` table to determine if the the attacker utilized the downloaded file. An entry in the `DeviceProcessEvents` table indicated that the attacker did indeed execute the file.
+Understanding that the threat actor downloaded the malicious executable `MaliciousExecutable.exe`, the next stage in the investigation was to determine if the file was executed. Using the endpoint's name and the name of the executable, I filtered the event logs within the `DeviceProcessEvents` table to determine if the the attacker utilized the downloaded file. An entry in the `DeviceProcessEvents` table indicated that the attacker did indeed execute the file at `2025-03-15T15:02:57.0097307Z`.
 
 **Query used to locate events:**
 
