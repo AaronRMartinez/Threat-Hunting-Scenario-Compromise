@@ -1,3 +1,6 @@
+![image](https://github.com/user-attachments/assets/450a9ad8-f3b1-4eb7-99a2-6adf5c004cb5)
+
+
 # Threat Hunt Report: System Compromise
 - [Scenario Creation](https://github.com/AaronRMartinez/Threat-Hunting-Scenario-Tor/blob/main/Threat-Hunting-Scenario-Tor-Event-Creation.md)
 
