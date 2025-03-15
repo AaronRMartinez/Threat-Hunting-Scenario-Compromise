@@ -15,6 +15,7 @@ It is suspected that a machine within the enterprise was targeted by a brute-for
 ### High-Level Malicious Activity IoC Discovery Plan
 
 - **Check `DeviceLogonEvents`** for any failed or successful RDP logon attempts.
+- **Check `DeviceEvents`** for any signs of malicious activity.
 - **Check `DeviceProcessEvents`** for any signs of malicious activity.
 - **Check `DeviceNetworkEvents`** for any signs of outgoing connections or file downloads.
 - **Check `DeviceFileEvents`** for any signs of files being downloaded or created.
