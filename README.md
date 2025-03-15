@@ -61,7 +61,7 @@ DeviceEvents
 
 ### 3. Inspected the `DeviceNetworkEvents` Table to Collaborate Suspicions
 
-Referencing the time of the `Invoke-WebRequest` PowerShell command at `2025-03-15T15:02:33.7060993Z`, I searched for any network connections occuring around that time. A successful network connection was observed taking place at the time of the `Invoke-WebRequest` command with the associated domain name `github.com` in suspected PowerShell command. Validating the suspicion that the threat actor initiated a download on the endpoint `arm-compromis`.
+Referencing the time of the `Invoke-WebRequest` PowerShell command at `2025-03-15T15:02:33.7060993Z`, I searched for any network connections occuring around that time. A successful network connection was observed taking place at the time of the `Invoke-WebRequest` command with the associated domain name `github.com` in suspected PowerShell command. Validating the suspicion that the threat actor initiated a download on the endpoint `arm-thcompromis`.
 
 **Query used to locate events:**
 
@@ -69,7 +69,7 @@ Referencing the time of the `Invoke-WebRequest` PowerShell command at `2025-03-1
 DeviceNetworkEvents
 | where DeviceName == "arm-thcompromis"
 | where Timestamp >= datetime(2025-03-15T15:02:33.7060993Z)
-|order by Timestamp asc
+| order by Timestamp asc
 | project Timestamp, ActionType, RemotePort, RemoteUrl, InitiatingProcessCommandLine, InitiatingProcessAccountName
 ```
 ![image](https://github.com/user-attachments/assets/0407b8a4-4a73-4876-9e81-d3596203d988)
