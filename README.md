@@ -150,7 +150,7 @@ DeviceNetworkEvents
 
 ## Chronological Event Timeline 
 
-### 1. File Download - TOR Installer
+### 1. RDP Brute Force Attack - Failed RDP Logons
 
 - **Timestamp:** `2025-03-05T01:03:21.8806891Z`
 - **Event:** The user "aaronmart" downloaded a file named `tor-browser-windows-x86_64-portable-14.0.1.exe` to the Downloads folder.
