@@ -10,7 +10,7 @@
 
 ##  Scenario
 
-It is suspected that a machine within the enterprise was targeted by an RDP brute-force attack. A high volume of failed logon attempts was detected on the system, along with unusual activity in the event logs. The objective is to determine whether the attacker successfully gained access and whether any malicious actions were performed. If a compromise is confirmed, the incident response plan will be initiated.
+It is suspected that a machine within the enterprise was targeted by a brute-force attack. A high number of failed logon attempts was detected on the system, along with unusual activity in the event logs. The objective is to determine whether the attacker successfully gained access and whether any malicious actions were performed. If a compromise is confirmed, the incident response plan will be initiated.
 
 ### High-Level Malicious Activity IoC Discovery Plan
 
@@ -27,20 +27,16 @@ It is suspected that a machine within the enterprise was targeted by an RDP brut
 
 ### 1. Searched the `DeviceLogonEvents` Table
 
-Searched for any file that had the string "tor" in it and discovered what looks like the user "employee" downloaded a TOR installer, did something that resulted in many TOR-related files being copied to the desktop, and the creation of a file called `tor-shopping-list.txt` on the desktop at `2025-03-05T01:24:05.3837414Z`. These events began at `2025-03-05T01:03:21.8806891Z`.
+Inspecting the `DeviceLogonEvents` table for relevant logs to the endpoint `arm-thcompromis`, several failed logon attemps to the user account 'aaronmart` was observed. The failed logon attempts occurred in quick succession, indicating a brute force attack likely occurred. The brute force attack appeared to be successful because of successful login succeeding the failed attempts at `2025-03-15T15:02:10.5325975Z`.
 
 **Query used to locate events:**
 
 ```kql
-DeviceFileEvents
-| where DeviceName == "arm-threathunti"
-| where InitiatingProcessAccountName == "aaronmart"
-| where FileName contains "tor"
-| where Timestamp >= datetime(2025-03-05T01:03:21.8806891Z)
-| order by Timestamp desc
-| project Timestamp, DeviceName, ActionType, FileName, FolderPath, SHA256, Account = InitiatingProcessAccountName
+DeviceLogonEvents
+| where DeviceName == "arm-thcompromis"
+| project Timestamp, DeviceName, ActionType, LogonType, AccountName, FailureReason
 ```
-![image](https://github.com/user-attachments/assets/5af94afe-e028-4e38-b435-fea10698cfbe)
+![image](https://github.com/user-attachments/assets/01598b1a-c366-49f7-a5fd-eef612290d80)
 
 ---
 
