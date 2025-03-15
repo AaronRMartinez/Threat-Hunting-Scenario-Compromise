@@ -76,7 +76,7 @@ DeviceNetworkEvents
 
 ---
 
-### 4. Searched the `DeviceFileEvents` Table for File Creation Events
+### 4. Inspected the `DeviceProcessEvents` Table to Verfiy if `MaliciousExecutable.exe` was Run
 
 Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2025-03-05T01:07:24.7605276Z`, an employee on the 'arm-threathunti' device successfully established a connection to the remote IP address `45.142.177.89` on port `443`. The connection was initiated by the process `tor.exe`, located in the folder `C:\users\aaronmart\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443` and '9001'.
 
