@@ -199,12 +199,12 @@ DeviceNetworkEvents
 
 ## Summary
 
-The user "aaronmart" on the "arm-threathunti" device initiated and completed the installation of the TOR browser. They proceeded to launch the browser, establish connections within the TOR network, and created various files related to TOR on their desktop, including a file named `tor-shopping-list.txt`. This sequence of activities indicates that the user actively installed, configured, and used the TOR browser, likely for anonymous browsing purposes, with possible documentation in the form of the "shopping list" file.
+A RDP brute force attack targeted the user account "aaronmart" on the endpoint "arm-threatunti". The attacker successfully gained access to the machine and executed an "Invoke-WebRequest" command to download a malicious executable. The malicious executable was then executed, running several encoded PowerShell commands.  A compressed file was downloaded that contained several files intended for further exploitation. Subsequently, a scheduled task was created to establish persistence on the system. While network reconnaissance was also conducted by the malicious executable.
 
 ---
 
 ## Response Taken
 
-TOR usage was confirmed on the endpoint `arm-threathunti` by the user `aaronmart`. The device was isolated, and the user's direct manager was notified.
+A RDP Brute Force Attack was confirmed and verified to have been successful on the endpoint `arm-threathunti`, on the user account `aaronmart`. The device was isolated, and the security operations center was notified.
 
 ---
