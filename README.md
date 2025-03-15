@@ -83,14 +83,12 @@ Searched for any indication the TOR browser was used to establish a connection u
 **Query used to locate events:**
 
 ```kql
-DeviceNetworkEvents
-| where DeviceName == "arm-threathunti"
-| where InitiatingProcessAccountName != "system"
-| where RemotePort in ("80", "443", "9001", "9030", "9040", "9050", "9051", "9150")
-| project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, RemoteIP, RemotePort, RemoteUrl, InitiatingProcessFileName
-| order by Timestamp desc
+DeviceProcessEvents
+| where DeviceName == "arm-thcompromis"
+|where FileName == "MaliciousExecutable.exe"
+| order by Timestamp asc
 ```
-![image](https://github.com/user-attachments/assets/4757d3cd-b515-4a23-8a78-2f2aec559de6)
+![image](https://github.com/user-attachments/assets/d3d20408-d3e8-4f0a-82cc-da5063fa1a0f)
 
 ---
 
