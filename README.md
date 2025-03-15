@@ -92,23 +92,21 @@ DeviceProcessEvents
 
 ---
 
-### 4. Inspected the `DeviceProcessEvents` Table for Observe `MaliciousExecutable.exe`'s Actions
+### 4. Inspected the `DeviceProcessEvents` Table to Observe `MaliciousExecutable.exe`'s Actions
 
-
-
-Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2025-03-05T01:07:24.7605276Z`, an employee on the 'arm-threathunti' device successfully established a connection to the remote IP address `45.142.177.89` on port `443`. The connection was initiated by the process `tor.exe`, located in the folder `C:\users\aaronmart\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443` and '9001'.
+Knowing that the threat attacker exectued `MaliciousExecutable.exe`, tracking and observing the executable's actions became imperative. 
 
 **Query used to locate events:**
 
 ```kql
-DeviceNetworkEvents
-| where DeviceName == "arm-threathunti"
-| where InitiatingProcessAccountName != "system"
-| where RemotePort in ("80", "443", "9001", "9030", "9040", "9050", "9051", "9150")
-| project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, RemoteIP, RemotePort, RemoteUrl, InitiatingProcessFileName
-| order by Timestamp desc
+DeviceProcessEvents
+| where DeviceName == "arm-thcompromis"
+| where InitiatingProcessFileName == "maliciousexecutable.exe"
+| order by Timestamp asc
+| project Timestamp, ActionType, FileName, ProcessCommandLine
 ```
-![image](https://github.com/user-attachments/assets/4757d3cd-b515-4a23-8a78-2f2aec559de6)
+![image](https://github.com/user-attachments/assets/9f2cecd1-07a5-4715-9f00-423c924fdd86)
+
 
 ---
 
