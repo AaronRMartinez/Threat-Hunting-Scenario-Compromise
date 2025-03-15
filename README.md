@@ -23,7 +23,7 @@ It is suspected that a machine within the enterprise was targeted by an RDP brut
 
 ## Steps Taken
 
-### 1. Searched the `DeviceFileEvents` Table
+### 1. Searched the `DeviceLogonEvents` Table
 
 Searched for any file that had the string "tor" in it and discovered what looks like the user "employee" downloaded a TOR installer, did something that resulted in many TOR-related files being copied to the desktop, and the creation of a file called `tor-shopping-list.txt` on the desktop at `2025-03-05T01:24:05.3837414Z`. These events began at `2025-03-05T01:03:21.8806891Z`.
 
@@ -59,7 +59,7 @@ DeviceProcessEvents
 
 ---
 
-### 3. Searched the `DeviceProcessEvents` Table for TOR Browser Execution
+### 3. Searched the `DeviceNetworkEvents` Table for File Downloads
 
 Searched for any indication that user "employee" actually opened the TOR browser. There was evidence that they did open it at `2025-03-05T01:07:10.6041161Z`. There were several other instances of `firefox.exe` (TOR) as well as `tor.exe` spawned afterwards.
 
@@ -76,7 +76,61 @@ DeviceProcessEvents
 
 ---
 
-### 4. Searched the `DeviceNetworkEvents` Table for TOR Network Connections
+### 4. Searched the `DeviceFileEvents` Table for File Creation Events
+
+Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2025-03-05T01:07:24.7605276Z`, an employee on the 'arm-threathunti' device successfully established a connection to the remote IP address `45.142.177.89` on port `443`. The connection was initiated by the process `tor.exe`, located in the folder `C:\users\aaronmart\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443` and '9001'.
+
+**Query used to locate events:**
+
+```kql
+DeviceNetworkEvents
+| where DeviceName == "arm-threathunti"
+| where InitiatingProcessAccountName != "system"
+| where RemotePort in ("80", "443", "9001", "9030", "9040", "9050", "9051", "9150")
+| project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, RemoteIP, RemotePort, RemoteUrl, InitiatingProcessFileName
+| order by Timestamp desc
+```
+![image](https://github.com/user-attachments/assets/4757d3cd-b515-4a23-8a78-2f2aec559de6)
+
+---
+
+### 4. Searched the `DeviceProcessEvents` Table for Executable Events
+
+Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2025-03-05T01:07:24.7605276Z`, an employee on the 'arm-threathunti' device successfully established a connection to the remote IP address `45.142.177.89` on port `443`. The connection was initiated by the process `tor.exe`, located in the folder `C:\users\aaronmart\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443` and '9001'.
+
+**Query used to locate events:**
+
+```kql
+DeviceNetworkEvents
+| where DeviceName == "arm-threathunti"
+| where InitiatingProcessAccountName != "system"
+| where RemotePort in ("80", "443", "9001", "9030", "9040", "9050", "9051", "9150")
+| project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, RemoteIP, RemotePort, RemoteUrl, InitiatingProcessFileName
+| order by Timestamp desc
+```
+![image](https://github.com/user-attachments/assets/4757d3cd-b515-4a23-8a78-2f2aec559de6)
+
+---
+
+### 4. Searched the `DeviceProcessEvents` Table for Malicious Script Activity
+
+Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2025-03-05T01:07:24.7605276Z`, an employee on the 'arm-threathunti' device successfully established a connection to the remote IP address `45.142.177.89` on port `443`. The connection was initiated by the process `tor.exe`, located in the folder `C:\users\aaronmart\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443` and '9001'.
+
+**Query used to locate events:**
+
+```kql
+DeviceNetworkEvents
+| where DeviceName == "arm-threathunti"
+| where InitiatingProcessAccountName != "system"
+| where RemotePort in ("80", "443", "9001", "9030", "9040", "9050", "9051", "9150")
+| project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, RemoteIP, RemotePort, RemoteUrl, InitiatingProcessFileName
+| order by Timestamp desc
+```
+![image](https://github.com/user-attachments/assets/4757d3cd-b515-4a23-8a78-2f2aec559de6)
+
+---
+
+### 4. Searched the `DeviceRegistryEvents` Table for Registry Modifications to Obtain Persistence 
 
 Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2025-03-05T01:07:24.7605276Z`, an employee on the 'arm-threathunti' device successfully established a connection to the remote IP address `45.142.177.89` on port `443`. The connection was initiated by the process `tor.exe`, located in the folder `C:\users\aaronmart\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443` and '9001'.
 
