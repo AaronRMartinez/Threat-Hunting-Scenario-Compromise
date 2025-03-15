@@ -42,16 +42,17 @@ DeviceLogonEvents
 
 ### 2. Searched the `DeviceProcessEvents` Table
 
-Searched for any `ProcessCommandLine` that contained the string "tor-browser-windows-x86_64-portable-14.0.1.exe". Based on the logs returned, at `2025-03-05T01:05:56.8154496Z`, an employee on the "threat-hunt-lab" device ran the file `tor-browser-windows-x86_64-portable-14.0.1.exe` from their Downloads folder, using a command that triggered a silent installation.
+Observing that a successful login was achieved after the failed attempts, I inspected the `DeviceProcessEvents` to search for any unusual or suspicious behavior. I narrowed my search in the table by only returning event logs after the successful logon at `2025-03-15T15:02:10.5325975Z`. I began my threat hunting by querying for any `PowerShellCommand` activity using the `ActionType` field. 
 
 **Query used to locate event:**
 
 ```kql
-
-DeviceProcessEvents
-| where DeviceName == "arm-threathunti"
-| where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-14.0.7.exe"
-| project Timestamp, DeviceName, AccountName, ActionType, FolderPath, SHA256, ProcessCommandLine
+DeviceEvents
+| where DeviceName == "arm-thcompromis"
+| where Timestamp > datetime(2025-03-15T15:02:10.5325975Z)
+| where ActionType == "PowerShellCommand"
+| order by Timestamp asc
+| project Timestamp, InitiatingProcessAccountName, InitiatingProcessId, InitiatingProcessCommandLine, AdditionalFields
 ```
 ![image](https://github.com/user-attachments/assets/f9d779ba-120b-47d1-897f-d81282452df1)
 
