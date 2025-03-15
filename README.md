@@ -10,7 +10,7 @@
 
 ##  Scenario
 
-It is suspected that a machine within the enterprise was targeted by a brute-force attack. A high number of failed logon attempts was detected on the system, along with unusual activity in the event logs. The objective is to determine whether the attacker successfully gained access and whether any malicious actions were performed. If a compromise is confirmed, the incident response plan will be initiated.
+It is suspected that a machine within the enterprise was targeted by a brute-force attack. A high number of failed logon attempts was detected on the system, along with unusual activity in the event logs. The objective is to determine whether the attacker successfully gained access and if any malicious actions were performed. If a compromise is confirmed, the incident response plan will be initiated.
 
 ### High-Level Malicious Activity IoC Discovery Plan
 
@@ -78,9 +78,7 @@ DeviceNetworkEvents
 
 ### 4. Inspected the `DeviceProcessEvents` Table to Verfiy if `MaliciousExecutable.exe` was Run
 
-Understanding that the threat actor downloaded the malicious executable `MaliciousExecutable.exe`, my threat hunting process 
-
-Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2025-03-05T01:07:24.7605276Z`, an employee on the 'arm-threathunti' device successfully established a connection to the remote IP address `45.142.177.89` on port `443`. The connection was initiated by the process `tor.exe`, located in the folder `C:\users\aaronmart\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443` and '9001'.
+Understanding that the threat actor downloaded the malicious executable `MaliciousExecutable.exe`, the next stage in the investigation was to determine if the file was executed. Using the endpoint's name and the name of the executable, I filtered the event logs within the `DeviceProcessEvents` table to determine if the the attacker utilized the downloaded file. An entry in the `DeviceProcessEvents` table indicated that the attacker did indeed execute the file.
 
 **Query used to locate events:**
 
