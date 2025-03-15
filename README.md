@@ -5,17 +5,19 @@
 - Windows 10 Virtual Machines (Microsoft Azure)
 - EDR Platform: Microsoft Defender for Endpoint
 - Kusto Query Language (KQL)
-- Tor Browser
 
 ##  Scenario
 
 It is suspected that a machine within the enterprise was targeted by an RDP brute-force attack. A high volume of failed logon attempts was detected on the system, along with unusual activity in the event logs. The objective is to determine whether the attacker successfully gained access and whether any malicious actions were performed. If a compromise is confirmed, the incident response plan will be initiated.
 
-### High-Level TOR-Related IoC Discovery Plan
+### High-Level Malicious Activity IoC Discovery Plan
 
-- **Check `DeviceFileEvents`** for any `tor(.exe)` or `firefox(.exe)` file events.
-- **Check `DeviceProcessEvents`** for any signs of installation or usage.
-- **Check `DeviceNetworkEvents`** for any signs of outgoing connections over known TOR ports.
+- **Check `DeviceLogonEvents`** for any failed or successful RDP logon attempts.
+- **Check `DeviceProcessEvents`** for any signs of malicious activity.
+- **Check `DeviceNetworkEvents`** for any signs of outgoing connections or file downloads.
+- **Check `DeviceFileEvents`** for any signs of files being downloaded or created.
+- **Check `DeviceRegistryEvents`** for any signs of registry modifications in the registry for persistence.
+
 
 ---
 
