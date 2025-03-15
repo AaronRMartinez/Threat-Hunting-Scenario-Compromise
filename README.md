@@ -27,7 +27,7 @@ It is suspected that a machine within the enterprise was targeted by a brute-for
 
 ### 1. Searched the `DeviceLogonEvents` Table
 
-Inspecting the `DeviceLogonEvents` table for relevant logs to the endpoint `arm-thcompromis`, several failed logon attemps to the user account 'aaronmart` was observed. The failed logon attempts occurred in quick succession, indicating a brute force attack likely occurred. The brute force attack appeared to be successful because of successful login succeeding the failed attempts at `2025-03-15T15:02:10.5325975Z`.
+Inspecting the `DeviceLogonEvents` table for relevant logs to the endpoint `arm-thcompromis`, several failed logon attemps to the user account `aaronmart` was observed. The failed logon attempts occurred in quick succession, indicating a brute force attack likely occurred. The brute force attack appeared to be successful because of successful login succeeding the failed attempts at `2025-03-15T15:02:10.5325975Z`.
 
 **Query used to locate events:**
 
