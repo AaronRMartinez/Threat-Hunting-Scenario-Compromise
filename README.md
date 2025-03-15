@@ -94,7 +94,7 @@ DeviceProcessEvents
 
 ### 4. Inspected the `DeviceProcessEvents` Table to Observe `MaliciousExecutable.exe`'s Actions
 
-Knowing that the threat attacker exectued `MaliciousExecutable.exe`, tracking and observing the executable's actions became imperative. 
+Knowing that the threat attacker exectued `MaliciousExecutable.exe`, tracking and observing the executable's actions became imperative. Inspecting the `DeviceProcessEvents` table and filtering the logs with the term `maliciousexecutable.exe` in the `InitiatingProcessFileName` field, I successfully returned relevant and vital logs tracking the `MaliciousExecutable.exe`'s actions.
 
 **Query used to locate events:**
 
