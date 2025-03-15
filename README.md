@@ -25,7 +25,7 @@ It is suspected that a machine within the enterprise was targeted by a brute-for
 
 ## Steps Taken
 
-### 1. Searched the `DeviceLogonEvents` Table
+### 1. Inspected the `DeviceLogonEvents` Table
 
 Inspecting the `DeviceLogonEvents` table for relevant logs to the endpoint `arm-thcompromis`, several failed logon attemps to the user account `aaronmart` was observed. The failed logon attempts occurred in quick succession, indicating a brute force attack likely occurred. The brute force attack appeared to be successful because of successful login succeeding the failed attempts at `2025-03-15T15:02:10.5325975Z`.
 
@@ -40,7 +40,7 @@ DeviceLogonEvents
 
 ---
 
-### 2. Searched the `DeviceProcessEvents` Table
+### 2. Inspected the `DeviceEvents` Table
 
 Observing that a successful login was achieved after the failed attempts, I inspected the `DeviceProcessEvents` to search for any unusual or suspicious behavior. I narrowed my search in the table by only returning event logs after the successful logon at `2025-03-15T15:02:10.5325975Z`. I began my threat hunting by querying for any `PowerShellCommand` activity using the `ActionType` field. Several logs were returned with the first suspicoius powershell command initiating an `Invoke-WebRequest` request for `https://github.com/AaronRMartinez/Threat-Hunting-Scenario-Compromise/raw/refs/heads/main/MaliciousExecutable.exe`. Possibly indicating that the attacker has initiated a download for a malicious file with the name `MaliciousExecutable.exe`.
 
@@ -58,7 +58,7 @@ DeviceEvents
 
 ---
 
-### 3. Searched the `DeviceNetworkEvents` Table for File Downloads
+### 3. Inspected the `DeviceNetworkEvents` Table to Collaborate Suspicions
 
 Searched for any indication that user "employee" actually opened the TOR browser. There was evidence that they did open it at `2025-03-05T01:07:10.6041161Z`. There were several other instances of `firefox.exe` (TOR) as well as `tor.exe` spawned afterwards.
 
