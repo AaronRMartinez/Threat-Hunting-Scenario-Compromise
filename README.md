@@ -61,18 +61,18 @@ DeviceEvents
 
 ### 3. Inspected the `DeviceNetworkEvents` Table to Collaborate Suspicions
 
-Searched for any indication that user "employee" actually opened the TOR browser. There was evidence that they did open it at `2025-03-05T01:07:10.6041161Z`. There were several other instances of `firefox.exe` (TOR) as well as `tor.exe` spawned afterwards.
+Referencing the time of the `Invoke-WebRequest` PowerShell command at `2025-03-15T15:02:33.7060993Z`, I searched for any network connections occuring around that time. A successful network connection was observed taking place at the time of the `Invoke-WebRequest` command with the associated domain name `github.com` in suspected PowerShell command. Validating the suspicion that the threat actor initiated a download on the endpoint `arm-compromis`.
 
 **Query used to locate events:**
 
 ```kql
-DeviceProcessEvents
-| where DeviceName == "arm-threathunti"
-| where FileName has_any ("tor.exe", "firefox.exe", "tor-browser.exe")
-| project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine
-| order by Timestamp desc
+DeviceNetworkEvents
+| where DeviceName == "arm-thcompromis"
+| where Timestamp >= datetime(2025-03-15T15:02:33.7060993Z)
+|order by Timestamp asc
+| project Timestamp, ActionType, RemotePort, RemoteUrl, InitiatingProcessCommandLine, InitiatingProcessAccountName
 ```
-![image](https://github.com/user-attachments/assets/e899bf32-c262-4f24-bbe3-16bf40fe68fd)
+![image](https://github.com/user-attachments/assets/0407b8a4-4a73-4876-9e81-d3596203d988)
 
 ---
 
