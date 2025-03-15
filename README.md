@@ -87,7 +87,7 @@ Searched for any indication the TOR browser was used to establish a connection u
 ```kql
 DeviceProcessEvents
 | where DeviceName == "arm-thcompromis"
-|where FileName == "MaliciousExecutable.exe"
+| where FileName == "MaliciousExecutable.exe"
 | order by Timestamp asc
 ```
 ![image](https://github.com/user-attachments/assets/d3d20408-d3e8-4f0a-82cc-da5063fa1a0f)
