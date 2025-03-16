@@ -99,7 +99,10 @@ DeviceEvents
 | order by Timestamp asc
 | project Timestamp, InitiatingProcessAccountName, InitiatingProcessId, InitiatingProcessCommandLine, AdditionalFields
 
-
+// "MaliciousExecutable.exe" saving the "arp -a" results in a text file
+DeviceFileEvents
+| where FileName == "arp_results.txt"
+| project  Timestamp, DeviceName, RequestAccountName, ActionType, InitiatingProcessCommandLine
 ```
 
 ---
