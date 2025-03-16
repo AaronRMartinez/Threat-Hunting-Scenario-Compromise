@@ -61,16 +61,18 @@ The executable downloaded a zip file to the user's Downloads file, extracted the
 
 ## Related Queries:
 ```kql
-// Installer name == tor-browser-windows-x86_64-portable-(version).exe
-// Detect the installer being downloaded
-DeviceFileEvents
-| where FileName startswith "tor"
+// Detect failed and successful logon attempts for the "aaronmart" account on the endpoint "arm-thcompromis"
+DeviceLogonEvents
+| where DeviceName == "arm-thcompromis"
+| project Timestamp, DeviceName, ActionType, LogonType, AccountName, FailureReason
 
-// TOR Browser being silently installed
-// Take note of two spaces before the /S (I don't know why)
-DeviceProcessEvents
-| where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-14.0.1.exe  /S"
-| project Timestamp, DeviceName, ActionType, FileName, ProcessCommandLine
+// "MaliciousExecutable.exe" being downloaded by threat actor
+// PowerShell command executing this action contained the "Invoke-WebRequest" command
+DeviceEvents
+| where DeviceName == "arm-thcompromis"
+| where Timestamp > datetime(2025-03-15T15:02:10.5325975Z)
+| where ActionType == "PowerShellCommand"
+| where AdditionalFields contains "Invoke-WebRequest"
 
 // TOR Browser or service was successfully installed and is present on the disk
 DeviceFileEvents
