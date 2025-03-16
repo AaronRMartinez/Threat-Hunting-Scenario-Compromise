@@ -111,7 +111,7 @@ DeviceProcessEvents
 
 ### 6. Deciphering `MaliciousExecutable.exe`'s Encoded PowerShell Commands
 
-Five encoded PowerShell commands associated with `MaliciousExecutable.exe` were logged by the EDR. Recognizing and understanding that these commands were obfuscated utilizing the `Base64` encoding scheme, I decrypted the commands to identify the commands being executed by the malicious file.
+Five encoded PowerShell commands associated with `MaliciousExecutable.exe` were logged by the EDR. Recognizing and understanding that these commands were obfuscated utilizing the `Base64` encoding scheme, I decrypted the strings to identify the commands being executed by the malicious file.
 
 First Command:
 
