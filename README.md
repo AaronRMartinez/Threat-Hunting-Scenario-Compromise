@@ -19,8 +19,6 @@ It is suspected that a machine within the enterprise was targeted by a brute-for
 - **Check `DeviceProcessEvents`** for any signs of malicious activity.
 - **Check `DeviceNetworkEvents`** for any signs of outgoing connections or file downloads.
 - **Check `DeviceFileEvents`** for any signs of files being downloaded or created.
-- **Check `DeviceRegistryEvents`** for any signs of registry modifications in the registry for persistence.
-
 
 ---
 
@@ -181,7 +179,7 @@ DeviceFileEvents
 
 ---
 
-### 8. Inspected the `DeviceRegistryEvents` Table to Search for Registry Modifications for Persistence
+### 8. Inspected the `DeviceProcessEvents` Table to Search for Scheduled Task Activity
 
 Observing that a successful login was achieved after the failed attempts, I inspected the `DeviceProcessEvents` to search for any unusual or suspicious behavior. I narrowed my search in the table by only returning event logs after the successful logon at `2025-03-15T15:02:10.5325975Z`. I began my threat hunting by querying for any `PowerShellCommand` activity using the `ActionType` field. Several logs were returned with the first suspicoius powershell command initiating an `Invoke-WebRequest` request for `https://github.com/AaronRMartinez/Threat-Hunting-Scenario-Compromise/raw/refs/heads/main/MaliciousExecutable.exe`. Possibly indicating that the attacker has initiated a download for a malicious file with the name `MaliciousExecutable.exe`.
 
@@ -195,7 +193,7 @@ DeviceEvents
 | order by Timestamp asc
 | project Timestamp, InitiatingProcessAccountName, InitiatingProcessId, InitiatingProcessCommandLine, AdditionalFields
 ```
-![image](https://github.com/user-attachments/assets/f00fdcdc-5148-4279-969e-1efe01f8756c)
+![image](https://github.com/user-attachments/assets/ec1eb29c-f274-4b0c-b3d1-0c641f7dd8bd)
 
 ## Chronological Event Timeline 
 
@@ -248,7 +246,7 @@ DeviceEvents
 
 ## Summary
 
-A RDP brute force attack targeted the user account "aaronmart" on the endpoint "arm-thcompromis". The attacker successfully gained access to the machine and executed an "Invoke-WebRequest" command to download a malicious executable. The malicious file was then executed, running several encoded PowerShell commands.  A compressed file was downloaded that contained several files intended for further exploitation use. Subsequently, a scheduled task was created to establish persistence on the system. While non-intrusive network reconnaissance was conducted on the endpoint.
+A RDP brute force attack targeted the user account `aaronmart` on the endpoint `arm-thcompromis`. The attacker successfully gained access to the machine and executed an `Invoke-WebRequest` command to download a malicious executable. The malicious file was then executed, running several encoded PowerShell commands.  A compressed file was downloaded that contained several files intended for further exploitation use. Subsequently, a scheduled task was created to establish persistence on the system. While non-intrusive network reconnaissance was conducted on the endpoint.
 
 ---
 
