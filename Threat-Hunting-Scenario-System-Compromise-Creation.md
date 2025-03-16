@@ -1,4 +1,4 @@
-# Threat Event (System Compromise)
+# Threat Hunting Scenario (System Compromise)
 **Threat Actor Malicious File Download and Malicious File Execution**
 
 ### `MaliciousExecutable.exe` Creation and Purpose
