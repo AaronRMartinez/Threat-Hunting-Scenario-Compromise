@@ -17,8 +17,7 @@ The "malicious" executable used within the project was originally written as a P
    - Fourth Command: `schtasks /create /tn "PersistenceScheduledTask" /tr "powershell.exe -ExecutionPolicy Bypass -File $env:USERPROFILE\Downloads\HackingTools\HackingTools\PersistenceScript.ps1" /sc onlogon /ru SYSTEM /f`
    - Fifth Command: `arp -a | Out-File -FilePath "$env:USERPROFILE\Desktop\arp_results.txt"`
 
-6. Create a folder on your desktop called ```tor-shopping-list.txt``` and put a few fake (illicit) items in there
-7. Delete the file.
+The executable downloaded a zip file to the user's Downloads file, extracted the contents, and deleted the artifact created by the extraction process. The executable the created a scheduled task to mimic the actions a threat actor would perform to gain persistence on the system and conducted non-intrusive network reconnaissance.   
 
 ---
 
