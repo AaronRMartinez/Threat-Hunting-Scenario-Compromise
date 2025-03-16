@@ -3,8 +3,7 @@
 
 ### `MaliciousExecutable.exe` Creation
 
-The "malicious" executable used within the project was originally written as a PowerShell script and converted into an exectuable using `PS2EXE`. 
-https://github.com/MScholtes/PS2EXE
+The "malicious" executable used within the project was originally written as a PowerShell script and converted into an exectuable using `PS2EXE` (https://github.com/MScholtes/PS2EXE). The intention of the executable was to emulate possible actions a threat actor would undertake once inside a system. 
 
 
 ## Steps the "Bad Actor" took Create Logs and IoCs:
