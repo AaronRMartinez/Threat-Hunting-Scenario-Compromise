@@ -73,15 +73,16 @@ DeviceEvents
 | where Timestamp > datetime(2025-03-15T15:02:10.5325975Z)
 | where ActionType == "PowerShellCommand"
 | where AdditionalFields contains "Invoke-WebRequest"
+| project Timestamp, InitiatingProcessAccountName, InitiatingProcessId, InitiatingProcessCommandLine, AdditionalFields
 
-// TOR Browser or service was successfully installed and is present on the disk
+// "MaliciousExecutable.exe" was successfully installed and is present on the disk
 DeviceFileEvents
-| where FileName has_any ("tor.exe", "firefox.exe")
+| where FileName has_any ("MaliciousExecutable.exe")
 | project  Timestamp, DeviceName, RequestAccountName, ActionType, InitiatingProcessCommandLine
 
-// TOR Browser or service was launched
+// "MaliciousExecutable.exe" was executed
 DeviceProcessEvents
-| where ProcessCommandLine has_any("tor.exe","firefox.exe")
+| where ProcessCommandLine has_any("MaliciousExecutable.exe")
 | project  Timestamp, DeviceName, AccountName, ActionType, ProcessCommandLine
 
 // TOR Browser or service is being used and is actively creating network connections
