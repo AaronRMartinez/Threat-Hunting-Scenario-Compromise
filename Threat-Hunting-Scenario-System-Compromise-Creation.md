@@ -85,16 +85,21 @@ DeviceProcessEvents
 | where ProcessCommandLine has_any("MaliciousExecutable.exe")
 | project  Timestamp, DeviceName, AccountName, ActionType, ProcessCommandLine
 
-// TOR Browser or service is being used and is actively creating network connections
-DeviceNetworkEvents
-| where InitiatingProcessFileName in~ ("tor.exe", "firefox.exe")
-| where RemotePort in (9001, 9030, 9040, 9050, 9051, 9150)
-| project Timestamp, DeviceName, InitiatingProcessAccountName, InitiatingProcessFileName, RemoteIP, RemotePort, RemoteUrl
-| order by Timestamp desc
+// "MaliciousExectuable.exe" executing the PowerShell commands
+DeviceProcessEvents
+| where DeviceName == "arm-thcompromis"
+| where InitiatingProcessFileName == "maliciousexecutable.exe"
+| order by Timestamp asc
+| project Timestamp, ActionType, FileName, ProcessCommandLine
 
-// User shopping list was created and, changed, or deleted
-DeviceFileEvents
-| where FileName contains "shopping-list.txt"
+// "MaliciousExecutable.exe" creating a scheduled task
+DeviceEvents
+| where InitiatingProcessFileName == "maliciousexecutable.exe"
+| where FileName == "schtasks.exe"
+| order by Timestamp asc
+| project Timestamp, InitiatingProcessAccountName, InitiatingProcessId, InitiatingProcessCommandLine, AdditionalFields
+
+
 ```
 
 ---
