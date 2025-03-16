@@ -197,9 +197,9 @@ DeviceEvents
 
 ---
 
-### 2. Inspected the `DeviceEvents` Table
+### 9. Inspected the `DeviceProcessEvents` Table to Search for Network Reconnaissance Commands
 
-dfgdf
+The fifth and final encoded command executed by `MaliciousExecutable.exe` served as non-intrusive network reconnaissance for the threat actor. The PowerShell command executed `arp -a` in order to display a list of IPaddresses and their associated MAC addresses that the endpoint `arm-thcompromis` has recently communicated with. The comamnd also specified the results to be written in a text file called `arp_results.txt` and to be saved on the user `aaronmart` Desktop. The executable initiated the `arp` command at `2025-03-15T15:03:04.6588508Z` 
 
 **Query used to locate event:**
 
