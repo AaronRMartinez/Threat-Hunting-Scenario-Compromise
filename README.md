@@ -181,7 +181,7 @@ DeviceFileEvents
 
 ### 8. Inspected the `DeviceProcessEvents` Table to Search for Scheduled Task Activity
 
-The fourth encoded command was created a new scheduled task with a PowerShell script to obtain persistence on the endpoint. The PowerShell script `PersistenceScript.ps1` found in the `HackingTools` folder was utilized by `MaliciousExecutable.exe` to create a new scheduled task called `PersistenceScheduledTask`. Referencing these details in a query, I discovered that the 'PersistenceScheduledTask` was created at `2025-03-15T15:03:02.4916028Z`.
+The fourth encoded command was created a new scheduled task with a PowerShell script to obtain persistence on the endpoint. The PowerShell script `PersistenceScript.ps1` found in the `HackingTools` folder was utilized by `MaliciousExecutable.exe` to create a new scheduled task called `PersistenceScheduledTask`. Referencing these details in a query, I discovered that the `PersistenceScheduledTask` was created at `2025-03-15T15:03:02.4916028Z`.
 
 **Query used to locate event:**
 
