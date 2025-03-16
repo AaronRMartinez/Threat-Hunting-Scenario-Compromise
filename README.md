@@ -92,7 +92,7 @@ DeviceProcessEvents
 
 ---
 
-### 4. Inspected the `DeviceProcessEvents` Table to Observe `MaliciousExecutable.exe`'s Actions
+### 5. Inspected the `DeviceProcessEvents` Table to Observe `MaliciousExecutable.exe`'s Actions
 
 Knowing that the threat attacker exectued `MaliciousExecutable.exe`, tracking and observing the executable's actions became imperative. Inspecting the `DeviceProcessEvents` table and filtering the logs with the term `maliciousexecutable.exe` in the `InitiatingProcessFileName` field, I successfully returned relevant and vital logs tracking the `MaliciousExecutable.exe`'s actions.
 
@@ -109,7 +109,7 @@ DeviceProcessEvents
 
 ---
 
-### 4. Deciphering `MaliciousExecutable.exe`'s Encoded PowerShell Commands
+### 6. Deciphering `MaliciousExecutable.exe`'s Encoded PowerShell Commands
 
 Five encoded PowerShell commands associated with `MaliciousExecutable.exe` were logged by the EDR. Recognizing and understanding that these commands were obfuscated utilizing the `Base64` encoding scheme, I decrypted the commands to identify the commands being executed by the malicious file.
 
@@ -161,21 +161,23 @@ Decrypted to:
 
 `arp -a | Out-File -FilePath "$env:USERPROFILE\Desktop\arp_results.txt"`
 
-### 4. Searched the `DeviceRegistryEvents` Table for Registry Modifications to Obtain Persistence 
+---
 
-Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2025-03-05T01:07:24.7605276Z`, an employee on the 'arm-threathunti' device successfully established a connection to the remote IP address `45.142.177.89` on port `443`. The connection was initiated by the process `tor.exe`, located in the folder `C:\users\aaronmart\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443` and '9001'.
+### 7. Searched the `DeviceFileEvents` Table for Logs Associated with `HackingTools.zip`
+
+The first encoded command by `MaliciousExecutable.exe` executed a file download utilizing the `Invoke-WebRequest` command. The downloaded file was a compressed archive named `HackingTools.zip`. The following encoded command extracted the contents of the `HackingTools.zip` file and the third encoded command deleted the artifact left by the file extraction process. Understanding what all three commands were performing, the `DeviceFileEvents` table was search to inspect the contents of `HackingTools.zip`.
 
 **Query used to locate events:**
 
 ```kql
-DeviceNetworkEvents
-| where DeviceName == "arm-threathunti"
-| where InitiatingProcessAccountName != "system"
-| where RemotePort in ("80", "443", "9001", "9030", "9040", "9050", "9051", "9150")
-| project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, RemoteIP, RemotePort, RemoteUrl, InitiatingProcessFileName
-| order by Timestamp desc
+DeviceFileEvents
+| where DeviceName == "arm-thcompromis"
+| where ActionType == "FileCreated"
+| where FolderPath contains "C:\\Users\\aaronmart\\Downloads\\HackingTools\\HackingTools\\"
+| order by Timestamp asc
+| project Timestamp, FileName, InitiatingProcessFileName, SHA256, InitiatingProcessCommandLine
 ```
-![image](https://github.com/user-attachments/assets/4757d3cd-b515-4a23-8a78-2f2aec559de6)
+![image](https://github.com/user-attachments/assets/cf23e412-5c04-4ffe-8858-fe9bda78e482)
 
 ---
 
