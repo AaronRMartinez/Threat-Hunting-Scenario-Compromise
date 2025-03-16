@@ -254,7 +254,7 @@ DeviceProcessEvents
 ### 6. Non-Intrusive Network Reconnaissance - MaliciousExecutable.exe Conducts Non-Intrusive Network Reconnaissance
 
 - **Timestamp:** `2025-03-15T15:02:57.0097307Z`
-- **Event:** The malicious file `MaliciousExecutable.exe` conducts non-intrusive network reconnaissance on the endpoint `arm-thcompromis` and saves the results in a text file called 'arp_results.txt` on the `Desktop`.
+- **Event:** The malicious file `MaliciousExecutable.exe` conducts non-intrusive network reconnaissance on the endpoint `arm-thcompromis` and saves the results in a text file called `arp_results.txt` on the `Desktop`.
 - **Action:** Network reconnaissance is conducted.
 - **Process:** `powershell.exe`
 - **Command:** `arp -a | Out-File -FilePath "$env:USERPROFILE\Desktop\arp_results.txt"`
