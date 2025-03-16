@@ -1,6 +1,12 @@
 # Threat Event (System Compromise)
 **Threat Actor Malicious File Download and Malicious File Execution**
 
+### `MaliciousExecutable.exe` Creation
+
+The "malicious" executable used within the project was originally written as a PowerShell script and converted into an exectuable using `PS2EXE`. 
+https://github.com/MScholtes/PS2EXE
+
+
 ## Steps the "Bad Actor" took Create Logs and IoCs:
 1. Download the TOR browser installer: https://www.torproject.org/download/
 2. Install it silently: ```tor-browser-windows-x86_64-portable-14.0.1.exe /S```
