@@ -195,6 +195,24 @@ DeviceEvents
 ```
 ![image](https://github.com/user-attachments/assets/ec1eb29c-f274-4b0c-b3d1-0c641f7dd8bd)
 
+---
+
+### 2. Inspected the `DeviceEvents` Table
+
+dfgdf
+
+**Query used to locate event:**
+
+```kql
+DeviceProcessEvents
+| where DeviceName == "arm-thcompromis"
+| where Timestamp >= datetime(2025-03-15T15:02:57.0097307Z)
+| where FileName == "ARP.EXE"
+| order by Timestamp asc
+| project Timestamp, FileName, InitiatingProcessFileName, ProcessCommandLine
+```
+![image](https://github.com/user-attachments/assets/93b8adf6-4a6c-483c-bbc8-fcc9d4c62a9b)
+
 ## Chronological Event Timeline 
 
 ### 1. RDP Brute Force Attack - Failed RDP Logons
