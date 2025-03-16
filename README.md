@@ -59,7 +59,7 @@ DeviceEvents
 
 ### 3. Inspected the `DeviceNetworkEvents` Table to Collaborate Suspicions
 
-Referencing the time of the `Invoke-WebRequest` PowerShell command at `2025-03-15T15:02:33.7060993Z`, I searched for any network connections occuring around that time. A successful network connection was observed taking place at the time of the `Invoke-WebRequest` command with the associated domain name `github.com` in suspected PowerShell command. Validating the suspicion that the threat actor initiated a download on the endpoint `arm-thcompromis`.
+Referencing the time of the `Invoke-WebRequest` PowerShell command at `2025-03-15T15:02:33.7060993Z`, I searched for any network connections occuring around that time. A successful network connection was observed taking place at the time of the `Invoke-WebRequest` command with the associated domain name `github.com` in the suspected PowerShell command. Validating the suspicion that the threat actor initiated a download on the endpoint `arm-thcompromis`.
 
 **Query used to locate events:**
 
@@ -181,7 +181,7 @@ DeviceFileEvents
 
 ### 8. Inspected the `DeviceProcessEvents` Table to Search for Scheduled Task Activity
 
-Observing that a successful login was achieved after the failed attempts, I inspected the `DeviceProcessEvents` to search for any unusual or suspicious behavior. I narrowed my search in the table by only returning event logs after the successful logon at `2025-03-15T15:02:10.5325975Z`. I began my threat hunting by querying for any `PowerShellCommand` activity using the `ActionType` field. Several logs were returned with the first suspicoius powershell command initiating an `Invoke-WebRequest` request for `https://github.com/AaronRMartinez/Threat-Hunting-Scenario-Compromise/raw/refs/heads/main/MaliciousExecutable.exe`. Possibly indicating that the attacker has initiated a download for a malicious file with the name `MaliciousExecutable.exe`.
+The fourth encoded command was created a new scheduled task with a PowerShell script to obtain persistence on the endpoint. The PowerShell script `PersistenceScript.ps1` found in the `HackingTools` folder was utilized by `MaliciousExecutable.exe` to create a new scheduled task called `PersistenceScheduledTask`. Referencing these details in a query, I discovered that the 'PersistenceScheduledTask` was created at `2025-03-15T15:03:02.4916028Z`.
 
 **Query used to locate event:**
 
