@@ -249,6 +249,7 @@ DeviceProcessEvents
 - **Timestamps:** `2025-03-15T15:02:57.0097307Z`
 - **Event:** The malicious file `MaliciousExecutable.exe` generates a Scheduled Task to gain persistence on the endpoint `arm-thcompromis`.
 - **Action:** A newly created ScheduledTask is detected.
+- **Process:** `powershell.exe`
 - **Command:** `schtasks /create /tn "PersistenceScheduledTask" /tr "powershell.exe -ExecutionPolicy Bypass -File $env:USERPROFILE\Downloads\HackingTools\HackingTools\PersistenceScript.ps1" /sc onlogon /ru SYSTEM /f`
 
 ### 6. Non-Intrusive Network Reconnaissance - MaliciousExecutable.exe Conducts Non-Intrusive Network Reconnaissance
