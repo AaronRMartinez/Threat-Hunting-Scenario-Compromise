@@ -1,9 +1,9 @@
 # Threat Event (System Compromise)
 **Threat Actor Malicious File Download and Malicious File Execution**
 
-### `MaliciousExecutable.exe` Creation
+### `MaliciousExecutable.exe` Creation and Purpose
 
-The "malicious" executable used within the project was originally written as a PowerShell script and converted into an exectuable using `PS2EXE` (https://github.com/MScholtes/PS2EXE). The intention of the executable was to emulate possible actions a threat actor would undertake once inside a system. 
+The "malicious" executable used within the project was originally written as a PowerShell script and converted into an exectuable using `PS2EXE` (https://github.com/MScholtes/PS2EXE). The intention of the executable was to emulate possible actions a threat actor would undertake once inside a system. I wanted the the executable to perform several commands to populate the `Microsoft Defender for Endpoint` logs. To add another layer of realism to the project, I obfuscated the commands to "challenge" and test a threat hunter's knolwedge and resourcefulness. While there were other possible network reconnaissance techniques the executable could have performed, I chose a non-intrusive technique in attempt to not disrupt other devices and systems on the network. 
 
 
 ## Steps the "Bad Actor" took Create Logs and IoCs:
