@@ -22,7 +22,7 @@ The "malicious" executable used within the project was originally written as a P
 
    - Fifth Command: `arp -a | Out-File -FilePath "$env:USERPROFILE\Desktop\arp_results.txt"`
 
-The executable downloaded a zip file to the user's Downloads file, extracted the contents, and deleted the artifact created by the extraction process. The executable the created a scheduled task to mimic the actions a threat actor would perform to gain persistence on the system and conducted non-intrusive network reconnaissance.   
+The executable downloaded a zip file to the user's Downloads file, extracted the contents, and deleted the artifact created by the extraction process. The executable created a scheduled task to mimic the actions a threat actor would perform to gain persistence on the system and conducted non-intrusive network reconnaissance.   
 
 ---
 
